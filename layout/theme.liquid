@@ -280,6 +280,27 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
+
+    <!-- Include the necessary styles for the popup -->
+    <style>
+      .popup-container {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        z-index: 999;
+      }
+    
+      .countdown {
+        font-size: 18px;
+        margin-top: 10px;
+      }
+    </style>
+
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -348,5 +369,41 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <!-- Popup Container -->
+    <div id="salePopup" class="popup-container">
+      <h2>Hurry Up! Sale Ends!</h2>
+      <div id="countdown" class="countdown"></div>
+    </div>
+    
+    <!-- Include the necessary scripts -->
+    <script>
+      // Set the date and time when the sale ends
+      var saleEndTime = new Date("December 31, 2023 23:59:59").getTime();
+    
+      // Update the countdown every second
+      var countdownInterval = setInterval(function() {
+        var now = new Date().getTime();
+        var timeRemaining = saleEndTime - now;
+    
+        var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+        var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+    
+        document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+    
+        // If the countdown is over, display a message and clear the interval
+        if (timeRemaining < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById("countdown").innerHTML = "Sale Ended!";
+        }
+      }, 1000);
+    
+      // Show the popup after 5 seconds (adjust as needed)
+      setTimeout(function() {
+        document.getElementById("salePopup").style.display = "block";
+      }, 5000);
+    </script>
+
   </body>
 </html>
