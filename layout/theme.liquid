@@ -350,5 +350,11 @@
     {%- if settings.predictive_search_enabled -%}
       <script src="{{ 'predictive-search.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
+
+    <!-- Popup Container -->
+    <div id="salePopup" class="popup-container">
+      <h2>Flash Sale!</h2>
+      <div id="countdown" class="countdown"></div>
+    </div>
   </body>
 </html>
