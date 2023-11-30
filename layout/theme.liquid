@@ -252,6 +252,8 @@
     {% endstyle %}
 
     {{ 'base.css' | asset_url | stylesheet_tag }}
+    {{ 'countdown-popup.css' | asset_url | stylesheet_tag }}
+    
 
     {%- unless settings.type_body_font.system? -%}
       <link rel="preload" as="font" href="{{ settings.type_body_font | font_url }}" type="font/woff2" crossorigin>
@@ -280,27 +282,6 @@
         document.documentElement.classList.add('shopify-design-mode');
       }
     </script>
-
-    <!-- Include the necessary styles for the popup -->
-    <style>
-      .popup-container {
-        display: none;
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-        z-index: 999;
-      }
-    
-      .countdown {
-        font-size: 18px;
-        margin-top: 10px;
-      }
-    </style>
-
   </head>
 
   <body class="gradient{% if settings.animations_hover_elements != 'none' %} animate--hover-{{ settings.animations_hover_elements }}{% endif %}">
@@ -372,7 +353,7 @@
 
     <!-- Popup Container -->
     <div id="salePopup" class="popup-container">
-      <h2>Hurry Up! Sale Ends!</h2>
+      <h2>Flash Sale!</h2>
       <div id="countdown" class="countdown"></div>
     </div>
     
@@ -401,7 +382,7 @@
     
       // Show the popup after 5 seconds (adjust as needed)
       setTimeout(function() {
-        document.getElementById("salePopup").style.display = "block";
+        document.getElementById("salePopup").style.display = "flex";
       }, 5000);
     </script>
 
