@@ -1,0 +1,25 @@
+// Set the date and time when the sale ends
+var saleEndTime = new Date("December 31, 2023 23:59:59").getTime();
+
+// Update the countdown every second
+var countdownInterval = setInterval(function() {
+  var now = new Date().getTime();
+  var timeRemaining = saleEndTime - now;
+
+  var hours = Math.floor((timeRemaining % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  var minutes = Math.floor((timeRemaining % (1000 * 60 * 60)) / (1000 * 60));
+  var seconds = Math.floor((timeRemaining % (1000 * 60)) / 1000);
+
+  document.getElementById("countdown").innerHTML = hours + "h " + minutes + "m " + seconds + "s ";
+
+  // If the countdown is over, display a message and clear the interval
+  if (timeRemaining < 0) {
+    clearInterval(countdownInterval);
+    document.getElementById("countdown").innerHTML = "Sale Ended!";
+  }
+}, 1000);
+
+// Show the popup after 5 seconds (adjust as needed)
+setTimeout(function() {
+  document.getElementById("salePopup").style.display = "flex";
+}, 5000);
